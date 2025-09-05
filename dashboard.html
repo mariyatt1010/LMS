@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Digital Library - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+  <nav class="navbar">
+    <div class="brand">📚 <strong>Library Management System</strong></div>
+    <ul class="navlinks">
+      <li><a href="#dashboard" onclick="showSection('dashboard')">Dashboard</a></li>
+      <li><a href="#actions" onclick="showSection('actions')">Actions</a></li>
+      <li><a href="#books" onclick="showSection('books')">Books</a></li>
+      <li><a href="#members" onclick="showSection('members')">Members</a></li>
+      <li><a href="#transactions" onclick="showSection('transactions')">Transactions</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-grid">
+    <!-- DASHBOARD STATS -->
+    <section id="dashboard" class="section active">
+      <h2 class="section-title">Library Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <div class="stat-value" id="totalBooks">0</div>
+          <div class="stat-label">Total Books</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value" id="activeUsers">0</div>
+          <div class="stat-label">Active Members</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔄</div>
+          <div class="stat-value" id="transactionsCount">0</div>
+          <div class="stat-label">Transactions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-value" id="availableBooks">0</div>
+          <div class="stat-label">Available Books</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK ACTIONS -->
+    <section id="actions" class="section">
+      <h2 class="section-title">Quick Actions</h2>
+      <div class="actions-grid">
+        <div class="action-card">
+          <h3>➕ Add New Book</h3>
+          <p>Add new books with ID, title, author and number of copies.</p>
+          <button class="btn" onclick="showSection('books'); document.getElementById('bookIdInput').focus();">Add Book</button>
+        </div>
+        <div class="action-card">
+          <h3>👤 Add Member</h3>
+          <p>Register new members to the library.</p>
+          <button class="btn" onclick="showSection('members'); document.getElementById('memberIdInput').focus();">Add Member</button>
+        </div>
+        <div class="action-card">
+          <h3>📦 Borrow Book</h3>
+          <p>Issue a book to a registered member.</p>
+          <button class="btn" onclick="showSection('books')">Borrow Book</button>
+        </div>
+        <div class="action-card">
+          <h3>🔍 Search Books</h3>
+          <p>Search books by ID, Title or Author.</p>
+          <button class="btn" onclick="showSection('books'); document.getElementById('bookSearchInput').focus();">Search Now</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKS -->
+    <section id="books" class="section">
+      <h2 class="section-title">Manage Books</h2>
+
+      <div class="form-row">
+        <input id="bookIdInput" placeholder="Book ID" />
+        <input id="bookTitleInput" placeholder="Book Title" />
+        <input id="bookAuthorInput" placeholder="Author" />
+        <input id="bookCopiesInput" type="number" placeholder="Total Copies" min="1" />
+        <button class="btn primary" id="addBookBtn">Add Book</button>
+      </div>
+
+      <div class="search-row">
+        <input id="bookSearchInput" placeholder="Search by ID, title, author" oninput="searchBook()" />
+        <button class="btn" onclick="searchBook()">Search</button>
+        <button class="btn" onclick="displayBooks()">Clear</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>ID</th><th>Title</th><th>Author</th><th>Total</th><th>Available</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="booksTbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MEMBERS -->
+    <section id="members" class="section">
+      <h2 class="section-title">Manage Members</h2>
+
+      <div class="form-row">
+        <input id="memberIdInput" placeholder="Member ID" />
+        <input id="memberNameInput" placeholder="Member Name" />
+        <button class="btn primary" id="addMemberBtn">Add Member</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Member ID</th><th>Name</th><th>Issued Books</th></tr>
+          </thead>
+          <tbody id="membersTbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TRANSACTIONS -->
+    <section id="transactions" class="section">
+      <h2 class="section-title">Transactions</h2>
+      <div id="transactionsList" class="transactions-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
